@@ -113,34 +113,33 @@ li {
     deleteAuth: "営業部",
    }
   };
-//   console.log(fileManage.f001);
-// Object.keys(fileManage).forEach((val) =>{
-// console.log(fileManage[val]);
+
+// const hoge = ['folderName', 'viewAuth', 'editAuth', 'deleteAuth'];
+// hoge.forEach((val) =>{
+//   document.getElementById(`f001-${val}`).textContent = fileManage.f001[val];
 // });
-
-const hoge = ['folderName', 'viewAuth', 'editAuth', 'deleteAuth'];
-hoge.forEach((val) =>{
-  document.getElementById(`f001-${val}`).textContent = fileManage.f001[val];
+// hoge.forEach((val) =>{
+//   document.getElementById(`f002-${val}`).textContent = fileManage.f002[val];
+// });
+// hoge.forEach((val) =>{
+//   document.getElementById(`f003-${val}`).textContent = fileManage.f003[val];
+// });
+const objFile = Object.keys(fileManage);
+objFile.forEach((val) => {
+  const elm = Object.keys(fileManage[val]);
+  elm.forEach((elm) => {
+    document.getElementById(val + '-' + elm).textContent = fileManage[val][elm];
 });
-hoge.forEach((val) =>{
-  document.getElementById(`f002-${val}`).textContent = fileManage.f002[val];
-});
-hoge.forEach((val) =>{
-  document.getElementById(`f003-${val}`).textContent = fileManage.f003[val];
-});
+  if(document.getElementById(`${val}-viewAuth`).textContent === 'everyone'){
+    const li = document.createElement('li');
+    document.getElementById('list').appendChild(li);
+    li.innerHTML = document.getElementById(`${val}-folderName`).textContent;
+}
+  });
 
-
-for(let i = 1; i < 4; i++){
-if(document.getElementById(`f00${i}-viewAuth`).textContent === 'everyone'){
-  const li = document.createElement('li');
-  document.getElementById('list').appendChild(li);
-  li.innerHTML = document.getElementById(`f00${i}-folderName`).textContent;
-}};
 
 
 
 </script>
 </body>
 </html>
-<!-- // Object.keys(fileManage.f001).forEach((val) => {
-//   fileManage.f001[val] -->

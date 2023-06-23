@@ -1,7 +1,7 @@
 (() => {
   'use strict';
   kintone.events.on('app.record.create.show', async (event) => {
-    const resp = await kintone.api(kintone.api.url('/k/v1/app/form/fields.json', true), 'GET', {'app': 15, 'lang': 'default'});
+    const resp = await kintone.api(kintone.api.url('/k/v1/app/form/fields.json', true), 'GET', {'app': kintone.app.getId(), 'lang': 'default'});
     const action5Array = resp.properties.Table.fields.Action5.options;
     const potArray = [];
     Object.keys(action5Array).forEach((val) => {

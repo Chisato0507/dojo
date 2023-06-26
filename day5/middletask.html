@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="stylesheet" href="middletask.css">
+<title>dojo課題</title>
+<style>
+html, body {
+  height: 100%;
+  margin: 0;
+}
+header {
+  background-color: #1aaedb;
+  border-bottom: #ead963 6px solid;
+}
+.container {
+  padding: 16px;
+  padding-left: 120px;
+}
+header h1,
+header h2 {
+  margin: 0;
+  color: #fff;
+  line-height: 1;
+}
+header h1 {
+  padding: 30px 0 5px 0;
+  font-size: 24px;
+  border-bottom: 1px dotted #fff;
+  font-weight: 500;
+}
+header h2 {
+  padding: 6px 0 0 0;
+  font-size: 14px;
+  font-weight: 400;
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="container">
+    <h1>kintone dojo</h1>
+    <h2>JavaScript中間課題</h2>
+  </div>
+</header>
+<main class="container">
+  <table id="tbl"></table> 
+</main>
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script>
+"use strict";
+axios.get('https://54o76ppvn8.execute-api.ap-northeast-1.amazonaws.com/prod/bb-dojo', {
+  params: {
+    id: 'dojo',
+    query: 'order by day desc'
+  }
+}).then((resp) => {
+  const newsdata = resp.data;
+  const dayArray = [];
+  const categoryArray = [];
+  const contentArray = [];
+  const urlArray = [];
+  const targetArray = [];
+  Object.keys(newsdata).forEach((val, index) => {
+    // ↓valueで配列を作成
+    dayArray.push(newsdata[val].day.value);
+    categoryArray.push(newsdata[val].category.value);
+    contentArray.push(newsdata[val].content.value);
+    urlArray.push(newsdata[val].url.value);
+    targetArray.push(newsdata[val].target.value);
+    // ↓テーブル作成
+    // テーブル要素作成
+    const getTable = document.getElementById('tbl');
+    const createTr = document.createElement('tr');
+    const createTd1 = document.createElement('td');
+    const createTd2 = document.createElement('td');
+    const createTd3 = document.createElement('td');
+    const createHref = document.createElement('a');
+    // テーブル要素にテキスト入れる
+    createTd1.textContent = dayArray[index];
+    createTd2.textContent = categoryArray[index];
+    createHref.href = urlArray[index];
+    createHref.innerText = contentArray[index];
+    // テーブル要素出力
+    createTd3.appendChild(createHref);
+    createTr.appendChild(createTd1);
+    createTr.appendChild(createTd2);
+    createTr.appendChild(createTd3);
+    getTable.appendChild(createTr);
+    // ↓色分けの条件
+    switch (categoryArray[index]) {
+      case '製品':
+        createTd2.id = 'product';
+        break;
+      case 'IR 情報':
+        createTd2.id = 'ir_info';
+        break;
+      case '企業情報':
+        createTd2.id = 'company_info';
+        break;
+    }
+    // ↓targetの条件分け
+    if (targetArray[index] === '_self') {
+      createHref.target = '_self';
+    } else {
+      createHref.target = '_brank';
+    }
+  });
+}).catch((err) => {
+  console.log(`ADRESS GET ERROR' : ${err}`);
+});
+</script>
+</body>
+</html>

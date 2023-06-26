@@ -1,0 +1,16 @@
+#product{
+  background-color: brown;
+}
+#ir_info{
+  background-color:aqua;
+}
+#company_info{
+  background-color:blueviolet;
+}
+#tbl{
+  width: 100%;
+}
+
+table, td{
+  border: 1px solid #333;;
+}

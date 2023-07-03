@@ -14,7 +14,7 @@
   ];
   kintone.events.on(['app.record.create.show', fields], (event) => {
     const date = event.record.日付.value;
-    const datemoji = dayjs(date).format('YYYYMMDD');
+    const datemoji = dateFns.format(date, 'YYYYMMDD');
     const product = event.record.サイボウズ製品.value;
     const number = event.record.管理番号.value;
     const productArray = {

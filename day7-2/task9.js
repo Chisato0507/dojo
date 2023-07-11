@@ -13,13 +13,6 @@
     };
     const resp = await kintone.api(kintone.api.url('/k/v1/records.json', true), 'GET', params);
     const Banfield = resp.records;
-    // const BanArray = [];
-    // Object.keys(Banfield).forEach((val) => {
-    //   Object.keys(Banfield[val]).forEach((elm) => {
-    //     BanArray.push(Banfield[val][elm].value);
-    //   });
-    // });
-    // const find = BanArray.includes(Ban);
     if (Banfield.length !== 0) {
       const result = confirm('レコードが重複しています。このまま保存しますか？');
       if (result) {
